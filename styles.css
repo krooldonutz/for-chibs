@@ -7,6 +7,10 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #ffccff; /* Pink background color */
+    background-image: url('resources/background.jpeg'); /* Add the path to your image here */
+    background-size: cover; /* Ensure the image covers the entire viewport */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image */
 }
 
 .container {
