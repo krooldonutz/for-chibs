@@ -26,46 +26,7 @@ function updateDigitalClock() {
   digitalClockContainer.textContent = 'Digital time: ' + timeString;
 }
 
-function updateAnalogClock() {
-  const canvas = document.getElementById('analogClockCanvas');
-  const ctx = canvas.getContext('2d');
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-  const centerX = canvas.width / 2;
-  const centerY = canvas.height / 2;
-  const radius = 80;
 
-  // Clear canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Draw clock face
-  ctx.beginPath();
-  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-  ctx.stroke();
-
-  // Draw hour hand
-  ctx.beginPath();
-  const hourAngle = (hours % 12 + minutes / 60) * 30 * Math.PI / 180;
-  ctx.moveTo(centerX, centerY);
-  ctx.lineTo(centerX + Math.cos(hourAngle) * radius * 0.5, centerY + Math.sin(hourAngle) * radius * 0.5);
-  ctx.stroke();
-
-  // Draw minute hand
-  ctx.beginPath();
-  const minuteAngle = minutes * 6 * Math.PI / 180;
-  ctx.moveTo(centerX, centerY);
-  ctx.lineTo(centerX + Math.cos(minuteAngle) * radius * 0.7, centerY + Math.sin(minuteAngle) * radius * 0.7);
-  ctx.stroke();
-
-  // Draw second hand
-  ctx.beginPath();
-  const secondAngle = seconds * 6 * Math.PI / 180;
-  ctx.moveTo(centerX, centerY);
-  ctx.lineTo(centerX + Math.cos(secondAngle) * radius * 0.9, centerY + Math.sin(secondAngle) * radius * 0.9);
-  ctx.stroke();
-}
 
 function updateGreeting() {
   const now = new Date();
@@ -82,16 +43,45 @@ function updateGreeting() {
   const greetingElement = document.getElementById('greeting');
   greetingElement.textContent = `${greeting}, ${name}`;
 }
+window.onload = function() {
 
-// Update both clocks initially
-updateDigitalClock();
-updateAnalogClock();
+  const hourHand = document.querySelector('.hourHand');
+      const minuteHand = document.querySelector('.minuteHand');
+      const secondHand = document.querySelector('.secondHand');
+      const time = document.querySelector('.time');
+      const clock = document.querySelector('.clock');
+      const audio = document.querySelector('.audio');
+  
+      function setDate(){
+          const today = new Date();
+          
+          const second = today.getSeconds();
+          const secondDeg = ((second / 60) * 360) + 360; 
+          secondHand.style.transform = `rotate(${secondDeg}deg)`;
+        
+          audio.play();
+          
+          const minute = today.getMinutes();
+          const minuteDeg = ((minute / 60) * 360); 
+          minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+  
+          const hour = today.getHours();
+          const hourDeg = ((hour / 12 ) * 360 ); 
+          hourHand.style.transform = `rotate(${hourDeg}deg)`;
+          
+          time.innerHTML = '<span>' + '<strong>' + hour + '</strong>' + ' : ' + minute + ' : ' + '<small>' + second +'</small>'+ '</span>';
+  
+          }
+    
+      setInterval(setDate, 1000);
+   
+  }
 
-// Update both clocks every second
-setInterval(() => {
-  updateDigitalClock();
-  updateAnalogClock();
-}, 1000);
+// // Update both clocks every second
+// setInterval(() => {
+//   updateDigitalClock();
+//   clock()
+// }, 1000);
 
 displayRandomAffirmation()
 
