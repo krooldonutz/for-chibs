@@ -35,30 +35,30 @@ function updateGreeting() {
   const greetingElement = document.getElementById('greeting');
   greetingElement.textContent = `${greeting}, ${name}`;
 }
-function setDate(){
-  const hourHand = document.querySelector('.hourHand');
-  const minuteHand = document.querySelector('.minuteHand');
-  const secondHand = document.querySelector('.secondHand');
-  const time = document.querySelector('.time');
-  const clock = document.querySelector('.clock');
-    const today = new Date();
-    
-    const second = today.getSeconds();
-    const secondDeg = ((second / 60) * 360) + 360; 
-    secondHand.style.transform = `rotate(${secondDeg}deg)`;
+function setDate(clockElement, timezoneOffset) {
+  const hourHand = clockElement.querySelector('.hourHand');
+  const minuteHand = clockElement.querySelector('.minuteHand');
+  const secondHand = clockElement.querySelector('.secondHand');
+  const time = clockElement.querySelector('.time');
 
-    
-    const minute = today.getMinutes();
-    const minuteDeg = ((minute / 60) * 360); 
-    minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+  const today = new Date();
+  const utc = today.getTime() + (today.getTimezoneOffset() * 60000);
+  const localTime = new Date(utc + (3600000 * timezoneOffset));
 
-    const hour = today.getHours();
-    const hourDeg = ((hour / 12 ) * 360 ); 
-    hourHand.style.transform = `rotate(${hourDeg}deg)`;
-    
-    time.innerHTML = '<span>' + '<strong>' + hour + '</strong>' + ' : ' + minute + ' : ' + '<small>' + second +'</small>'+ '</span>';
+  const second = localTime.getSeconds();
+  const secondDeg = ((second / 60) * 360) + 360;
+  secondHand.style.transform = `rotate(${secondDeg}deg)`;
 
-    }
+  const minute = localTime.getMinutes();
+  const minuteDeg = ((minute / 60) * 360);
+  minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+
+  const hour = localTime.getHours();
+  const hourDeg = ((hour / 12 ) * 360);
+  hourHand.style.transform = `rotate(${hourDeg}deg)`;
+
+  time.innerHTML = '<span>' + '<strong>' + hour + '</strong>' + ' : ' + minute + ' : ' + '<small>' + second +'</small>'+ '</span>';
+}
 
 var googleButton = document.getElementById("Google")
 googleButton.addEventListener("click", function() {
@@ -92,7 +92,13 @@ googleScholarButton.addEventListener("click", function() {
 
 window.onload = function() {
     
-      setInterval(setDate, 1000);
+  const jakartaClock = document.getElementById('jakarta-clock');
+  const klClock = document.getElementById('KL-clock');
+
+  setInterval(() => {
+      setDate(jakartaClock, 7); // Jakarta is UTC+7
+      setDate(klClock, 8); // Kuala Lumpur is UTC+8
+  }, 1000);
       displayRandomAffirmation()
       updateGreeting()
   }

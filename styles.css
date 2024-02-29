@@ -291,4 +291,17 @@ p {
     width: 100%;
     
 }
+.clock-container {
+    text-align: center;
+    background-color: #fff; /* White background for the container */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a sleek look */
+    display: flex; /* Add display flex to arrange clocks side by side */
+    flex-direction: row; /* Arrange clocks side by side */
+    justify-content: space-around; /* Add space between clocks */
+}
 
+.clock-subcontainer {
+    margin: 0 10px; /* Add margin to create space between clocks */
+}
