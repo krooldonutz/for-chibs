@@ -15,18 +15,10 @@ export function displayRandomAffirmation() {
         affirmationElement.textContent += ` - ${randomAffirmation.author} (${randomAffirmation.source})`;
     }
 }
-function updateDigitalClock() {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  const timeString = `${hours}:${minutes}:${seconds}`;
-  
-  const digitalClockContainer = document.getElementById('digitalClockContainer');
-  digitalClockContainer.textContent = 'Digital time: ' + timeString;
+
+export function openWebsite(webURl) {
+  window.open(webURl, "_blank");
 }
-
-
 
 function updateGreeting() {
   const now = new Date();
@@ -43,46 +35,64 @@ function updateGreeting() {
   const greetingElement = document.getElementById('greeting');
   greetingElement.textContent = `${greeting}, ${name}`;
 }
-window.onload = function() {
-
+function setDate(){
   const hourHand = document.querySelector('.hourHand');
-      const minuteHand = document.querySelector('.minuteHand');
-      const secondHand = document.querySelector('.secondHand');
-      const time = document.querySelector('.time');
-      const clock = document.querySelector('.clock');
-      const audio = document.querySelector('.audio');
-  
-      function setDate(){
-          const today = new Date();
-          
-          const second = today.getSeconds();
-          const secondDeg = ((second / 60) * 360) + 360; 
-          secondHand.style.transform = `rotate(${secondDeg}deg)`;
-        
-          audio.play();
-          
-          const minute = today.getMinutes();
-          const minuteDeg = ((minute / 60) * 360); 
-          minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
-  
-          const hour = today.getHours();
-          const hourDeg = ((hour / 12 ) * 360 ); 
-          hourHand.style.transform = `rotate(${hourDeg}deg)`;
-          
-          time.innerHTML = '<span>' + '<strong>' + hour + '</strong>' + ' : ' + minute + ' : ' + '<small>' + second +'</small>'+ '</span>';
-  
-          }
+  const minuteHand = document.querySelector('.minuteHand');
+  const secondHand = document.querySelector('.secondHand');
+  const time = document.querySelector('.time');
+  const clock = document.querySelector('.clock');
+    const today = new Date();
+    
+    const second = today.getSeconds();
+    const secondDeg = ((second / 60) * 360) + 360; 
+    secondHand.style.transform = `rotate(${secondDeg}deg)`;
+
+    
+    const minute = today.getMinutes();
+    const minuteDeg = ((minute / 60) * 360); 
+    minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+
+    const hour = today.getHours();
+    const hourDeg = ((hour / 12 ) * 360 ); 
+    hourHand.style.transform = `rotate(${hourDeg}deg)`;
+    
+    time.innerHTML = '<span>' + '<strong>' + hour + '</strong>' + ' : ' + minute + ' : ' + '<small>' + second +'</small>'+ '</span>';
+
+    }
+
+var googleButton = document.getElementById("Google")
+googleButton.addEventListener("click", function() {
+  openWebsite('https://www.google.com');
+});
+
+var gmailButton = document.getElementById("Gmail");
+gmailButton.addEventListener("click", function() {
+    openWebsite('https://www.gmail.com');
+});
+
+var youtubeButton = document.getElementById("Youtube");
+youtubeButton.addEventListener("click", function() {
+    openWebsite('https://www.youtube.com');
+});
+
+var canvaButton = document.getElementById("Canva");
+canvaButton.addEventListener("click", function() {
+    openWebsite('https://www.canva.com');
+});
+
+var googleDocsButton = document.getElementById("google-docs");
+googleDocsButton.addEventListener("click", function() {
+    openWebsite('https://docs.google.com/');
+});
+
+var googleScholarButton = document.getElementById("google-scholar");
+googleScholarButton.addEventListener("click", function() {
+    openWebsite('https://scholar.google.com/');
+});
+
+window.onload = function() {
     
       setInterval(setDate, 1000);
-   
+      displayRandomAffirmation()
+      updateGreeting()
   }
-
-// // Update both clocks every second
-// setInterval(() => {
-//   updateDigitalClock();
-//   clock()
-// }, 1000);
-
-displayRandomAffirmation()
-
-updateGreeting()
