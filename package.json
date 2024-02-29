@@ -1,0 +1,17 @@
+{
+  "name": "chibs",
+  "version": "1.0.0",
+  "description": "for girlfriend",
+  "main": "index.html",
+    "scripts": {
+      "dev": "live-server"
+    },
+      "type": "module",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "live-server": "^1.2.2"
+  }
+}
