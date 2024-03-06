@@ -11,7 +11,9 @@ body {
     background-size: cover; /* Ensure the image covers the entire viewport */
     background-repeat: no-repeat; /* Prevent the image from repeating */
     background-position: center; /* Center the image */
+    transform: scale(80%)
 }
+
 
 .container {
     text-align: center;
